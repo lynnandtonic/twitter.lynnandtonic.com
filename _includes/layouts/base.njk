@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="{{ metadata.language }}">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+      {% if twitter %}
+        Tweet {{ twitter }} | Lynn Fisher’s Twitter Archive
+      {% elif title%}
+        {{ title }} | Lynn Fisher’s Twitter Archive
+      {% else %}
+        Lynn Fisher’s Twitter Archive
+      {% endif %} 
+    </title>
+    <meta name="description" content="{{ description or metadata.description }}">
+
+    <meta name="generator" content="{{ eleventy.generator }}">
+
+    <link rel="stylesheet" href="{{ '/css/index.css' | url }}">
+    {# <link rel="stylesheet" href="{{ '/css/index.min.css' | url }}"> #}
+    <link rel="shortcut icon" href='/img/pizza-icon.png'>
+
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary">
+    <meta content="@lynnandtonic" name="twitter:site">
+    <meta content="@lynnandtonic" name="twitter:creator">
+    <meta content="{{ description or metadata.description }}" property="og:description">
+    <meta content="https://lynnandtonicblog.com{{ page.url | url }}" property="og:url">
+    <meta content="https://lynnandtonicblog.com{{ page.url | url }}" property="twitter:url">
+    <meta content="{{ title or metadata.title }}" name="twitter:title" property="og:title">
+    {% if og %}
+      <meta content="https://lynnandtonicblog.com/img/_og/{{ og }}" property="og:image">
+      <meta content="https://lynnandtonicblog.com/img/_og/{{ og }}" name="twitter:image">
+    {% else %}
+      <meta content="https://lynnandtonicblog.com/img/_og/og-blog.jpg" property="og:image">
+      <meta content="https://lynnandtonicblog.com/img/_og/og-blog.jpg" name="twitter:image">
+    {% endif %}
+
+  </head>
+
+  <body>
+    <div class="container">
+      <header class="header-main">
+        <div class="top-bar">
+          <a href="/" class="home">
+            <svg width="16" height="16" viewBox="0 0 24 24" aria-label="Home" class="icon"><g><path d="M21.591 7.146L12.52 1.157c-.316-.21-.724-.21-1.04 0l-9.071 5.99c-.26.173-.409.456-.409.757v13.183c0 .502.418.913.929.913h6.638c.511 0 .929-.41.929-.913v-7.075h3.008v7.075c0 .502.418.913.929.913h6.639c.51 0 .928-.41.928-.913V7.904c0-.301-.158-.584-.408-.758zM20 20l-4.5.01.011-7.097c0-.502-.418-.913-.928-.913H9.44c-.511 0-.929.41-.929.913L8.5 20H4V8.773l8.011-5.342L20 8.764z"></path></g></svg>
+          </a>
+          {% if twitter %}
+            <h1>Tweet {{ twitter }}</h1>
+          {% elif page.url == '/tags/popular/' %}
+            <h1>Lynn Fisher’s Twitter Archive</h1>
+          {% elif title%}
+            <h1>{{ title }}</h1>
+          {% else %}
+            <h1>Lynn Fisher’s Twitter Archive</h1>
+          {% endif %} 
+          <a href="/search" class="search">
+            <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true" class="icon"><g><path d="M10.25 3.75c-3.59 0-6.5 2.91-6.5 6.5s2.91 6.5 6.5 6.5c1.795 0 3.419-.726 4.596-1.904 1.178-1.177 1.904-2.801 1.904-4.596 0-3.59-2.91-6.5-6.5-6.5zm-8.5 6.5c0-4.694 3.806-8.5 8.5-8.5s8.5 3.806 8.5 8.5c0 1.986-.682 3.815-1.824 5.262l4.781 4.781-1.414 1.414-4.781-4.781c-1.447 1.142-3.276 1.824-5.262 1.824-4.694 0-8.5-3.806-8.5-8.5z"></path></g></svg> Search
+          </a>
+        </div>
+        {% if page.url == '/' %}
+          {% include "header.njk" %}
+          <div class="tabs">
+            <a href="/" class="active"><span>Tweets</span></a>
+            <a href="/tags/popular/"><span>Popular</span></a>
+          </div>
+        {% endif %}
+        {% if page.url == '/tags/popular/' %}
+          {% include "header.njk" %}
+          <div class="tabs">
+            <a href="/"><span>Tweets</span></a>
+            <a href="/tags/popular/" class="active"><span>Popular</span></a>
+          </div>
+        {% endif %}
+      </header>
+
+      <main {% if templateClass %} class="{{ templateClass }}"{% endif %}>
+        {{ content | safe }}
+      </main>
+    </div>
+
+  </body>
+</html>
